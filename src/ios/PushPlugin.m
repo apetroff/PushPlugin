@@ -168,7 +168,8 @@
     if (notificationMessage && self.callback)
     {
         NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[notificationMessage objectForKey:@"aps"]
+        //NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[notificationMessage objectForKey:@"aps"]
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:notificationMessage
                                                            options:0
                                                              error:&error];
         
