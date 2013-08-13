@@ -76,10 +76,26 @@ public class PushPlugin extends CordovaPlugin {
 			}
 			
 		} else if (UNREGISTER.equals(action)) {
-
-			GCMRegistrar.unregister(getApplicationContext());
-
+			
 			Log.v(TAG, "UNREGISTER");
+
+			try {
+				JSONObject jo = data.getJSONObject(0);
+				
+				gWebView = this.webView;
+				Log.v(TAG, "execute: jo=" + jo.toString());
+
+				gECB = (String) jo.get("ecb");
+
+				Log.v(TAG, "execute: ECB=" + gECB);
+
+				GCMRegistrar.unregister(getApplicationContext());
+				result = true;
+			} catch (JSONException e) {
+				Log.e(TAG, "execute: Got JSON Exception " + e.getMessage());
+				result = false;
+			}
+
 			result = true;
 		} else {
 			result = false;

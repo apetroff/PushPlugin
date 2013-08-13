@@ -59,6 +59,26 @@ public class GCMIntentService extends GCMBaseIntentService {
 	@Override
 	public void onUnregistered(Context context, String regId) {
 		Log.d(TAG, "onUnregistered - regId: " + regId);
+
+		JSONObject json;
+
+		try
+		{
+			json = new JSONObject().put("event", "unregistered");
+			json.put("regid", regId);
+
+			Log.v(TAG, "onUnregistered: " + json.toString());
+
+			// Send this JSON data to the JavaScript application above EVENT should be set to the msg type
+			// In this case this is the registration ID
+			PushPlugin.sendJavascript( json );
+
+		}
+		catch( JSONException e)
+		{
+			// No message to the user is sent, JSON failed
+			Log.e(TAG, "onRegistered: JSON exception");
+		}
 	}
 
 	@Override

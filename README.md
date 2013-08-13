@@ -250,7 +250,13 @@ Also make note of the **payload** object. Since the Android notification data mo
 #### unregister
 You will typically call this when your app is exiting, to cleanup any used resources. Its not strictly necessary to call it, and indeed it may be desireable to NOT call it if you are debugging your intermediarry push server. When you call unregister(), the current token for a particular device will get invalidated, and the next call to register() will return a new token. If you do NOT call unregister(), the last token will remain in effect until it is invalidated for some reason at the GCM side. Since such invalidations are beyond your control, its recommended that, in a production environment, that you have a matching unregister() call, for every call to register(), and that your server updates the devices' records each time.
 
+	for Android:
+	pushNotification.unregister(successHandler, errorHandler, {"ecb":"onNotificationGCM"});
+	WARNING!!! NEITHER successHandler NOR errorHandler WILL NOT BE CALLED!!!
+
+	for iOS:
 	pushNotification.unregister(successHandler, errorHandler);
+	WARNING!!! successHandler WILL BE CALLED!!!
 	
 You'll probably want to trap on the **backbutton** event and only call this when the home page is showing. Remember, the back button on android is not the same as the Home button. When you hit the back button from the home page, your activity gets dismissed. Here is an example of how to trap the backbutton event;
 

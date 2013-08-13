@@ -21,7 +21,7 @@ PushNotification.prototype.register = function(successCallback, errorCallback, o
 };
 
 // Call this to unregister for push notifications
-PushNotification.prototype.unregister = function(successCallback, errorCallback) {
+PushNotification.prototype.unregister = function(successCallback, errorCallback, options) {
     if (errorCallback == null) { errorCallback = function() {}}
 
     if (typeof errorCallback != "function")  {
@@ -34,7 +34,7 @@ PushNotification.prototype.unregister = function(successCallback, errorCallback)
         return
     }
 
-     cordova.exec(successCallback, errorCallback, "PushPlugin", "unregister", []);
+     cordova.exec(successCallback, errorCallback, "PushPlugin", "unregister", [options]);
 };
  
  
